@@ -1,0 +1,54 @@
+name: "CI"
+
+on:
+  push:
+    branches:
+      - '**'
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install
+        run: yarn
+
+      - name: Lint
+        run: yarn run lint:check
+
+      - name: Prettier
+        run: yarn run prettier:check
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install
+        run: yarn
+
+      - name: Test Action
+        uses: ./
+        with:
+          path: ./testUploadDirectory
+          pinName: "test-upload"
+          maxPinsToKeep: 1
+          pinataApiKey: ${{ secrets.PINATA_API_KEY }}
+          pinataSecretApiKey: ${{ secrets.PINATA_SECRET_API_KEY }}

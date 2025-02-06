@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Build action
+yarn run build
+
+# Add build files to commit
+git add . dist
