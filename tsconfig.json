@@ -1,0 +1,17 @@
+{
+    "extends": "@tsconfig/node20/tsconfig.json",
+    "include": [
+      "./src/*.ts"
+    ],
+    "exclude": [
+      "dist",
+      "node_modules"
+    ],
+    "compilerOptions": {
+      "typeRoots": [
+        "./types",
+        "node_modules/@types"
+      ],
+      "outDir": "./lib"
+    }
+  }

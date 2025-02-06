@@ -1,0 +1,25 @@
+name: 'Venus Pinta GitHub Action'
+author: 'Venus Protocol'
+description: 'A GitHub Action to upload a directory to IPFS and pin it using Pinata'
+inputs:
+  path:
+    description: 'Path of the directory to upload'
+    required: true
+  pinName:
+    description: 'Name of the pin. This name is used to determine what pins to delete when passing "maxPinsToKeep" input' 
+    required: true
+  maxPinsToKeep:
+    description: 'Sets the limit for how many pins with the same name to retain, deleting older ones'
+    required: false
+  pinataApiKey:
+    description: 'Pinata API key. Visit https://docs.pinata.cloud/account-management/api-keys'
+    required: true
+  pinataSecretApiKey: 
+    description: 'Pinata secret API key. Visit https://docs.pinata.cloud/account-management/api-keys'
+    required: true
+outputs:
+  cid:
+    description: 'CID of the pinned content'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

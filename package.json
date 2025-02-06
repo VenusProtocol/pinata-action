@@ -1,0 +1,40 @@
+{
+	"name": "@venusprotocol/pinata-action",
+	"version": "1.0.0",
+	"description": "A GitHub Action to upload a directory to IPFS and pin it using Pinata",
+	"author": "https://github.com/VenusProtocol",
+	"license": "MIT",
+	"main": "dist/index.ts",
+	"engines": {
+		"node": ">=20.x.x"
+	},
+	"scripts": {
+		"build": "tsc && ncc build ./src/main.ts -o dist",
+		"prettier:write": "prettier --write '**/*.ts'",
+		"prettier:check": "prettier --check '**/*.ts'",
+		"lint:check": "eslint . --ext .ts",
+		"lint:write": "eslint --fix . --ext .ts",
+		"prepare": "husky install"
+	},
+	"dependencies": {
+		"@actions/core": "^1.11.1",
+		"@octokit/action": "^6.0.7",
+		"@pinata/sdk": "1.2.1",
+		"@vercel/ncc": "^0.38.1"
+	},
+	"devDependencies": {
+		"@tsconfig/node20": "^20.1.4",
+		"@types/json-schema": "^7.0.15",
+		"@types/node": "^20.12.2",
+		"@typescript-eslint/eslint-plugin": "^7.4.0",
+		"@typescript-eslint/parser": "^7.4.0",
+		"eslint": "^8.57.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.1.3",
+		"husky": "^9.0.11",
+		"prettier": "^3.2.5",
+		"ts-node": "^10.9.2",
+		"tslib": "^2.6.2",
+		"typescript": "^5.4.3"
+	}
+}
