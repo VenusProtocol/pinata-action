@@ -14,8 +14,8 @@ inputs:
   pinataApiKey:
     description: 'Pinata API key. Visit https://docs.pinata.cloud/account-management/api-keys'
     required: true
-  pinataSecretApiKey: 
-    description: 'Pinata secret API key. Visit https://docs.pinata.cloud/account-management/api-keys'
+  pinataApiSecret: 
+    description: 'Pinata API secret. Visit https://docs.pinata.cloud/account-management/api-keys'
     required: true
 outputs:
   cid:

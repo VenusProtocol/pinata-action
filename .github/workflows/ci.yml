@@ -51,4 +51,4 @@ jobs:
           pinName: "VenusProtocol/pinata-action/test-upload"
           maxPinsToKeep: 1
           pinataApiKey: ${{ secrets.PINATA_API_KEY }}
-          pinataSecretApiKey: ${{ secrets.PINATA_SECRET_API_KEY }}
+          pinataApiSecret: ${{ secrets.PINATA_API_SECRET }}

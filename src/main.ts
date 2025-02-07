@@ -3,21 +3,23 @@ import pinataSDK, { type PinataPinListResponseRow } from '@pinata/sdk';
 
 const run = async () => {
   const pinataApiKey = getInput('pinataApiKey');
-  const pinataSecretApiKey = getInput('pinataSecretApiKey');
-  const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
+  const pinataApiSecret = getInput('pinataApiSecret');
+  const pinata = pinataSDK(pinataApiKey, pinataApiSecret);
 
   try {
     await pinata.testAuthentication();
     console.log('Successfully authenticated with Pinata');
   } catch (error) {
-    console.log('Failed authenticating with Pinata');
-    setFailed(error as string);
+    setFailed('Failed authenticating with Pinata');
+    console.log(error);
+    return;
   }
 
   try {
     const path = getInput('path');
     const pinName = getInput('pinName');
 
+    console.log('Uploading and pinning files to IPFS');
     const { IpfsHash: cid } = await pinata.pinFromFS(path, {
       pinataMetadata: {
         name: pinName,
@@ -57,8 +59,9 @@ const run = async () => {
 
         pins = rows;
       } catch (error) {
-        console.log('Failed to fetch existing pins');
-        setFailed(error as string);
+        setFailed('Failed to fetch existing pins');
+        console.log(error);
+        return;
       }
     }
 
@@ -84,15 +87,17 @@ const run = async () => {
         console.log(`Pins removed: ${pinsToDelete.length}`);
         console.log(pinsToDelete.map((p) => p.ipfs_pin_hash).join(', '));
       } catch (error) {
-        console.log('Failed to remove old pins');
-        setFailed(error as string);
+        setFailed('Failed to remove old pins');
+        console.log(error);
+        return;
       }
     }
 
     setOutput('cid', cid);
   } catch (error) {
-    console.log('Uploading and pinning failed');
-    setFailed(error as string);
+    setFailed('Uploading and pinning failed');
+    console.log(error);
+    return;
   }
 };
 

@@ -51284,19 +51284,21 @@ const core_1 = __nccwpck_require__(2186);
 const sdk_1 = __importDefault(__nccwpck_require__(3000));
 const run = async () => {
     const pinataApiKey = (0, core_1.getInput)('pinataApiKey');
-    const pinataSecretApiKey = (0, core_1.getInput)('pinataSecretApiKey');
-    const pinata = (0, sdk_1.default)(pinataApiKey, pinataSecretApiKey);
+    const pinataApiSecret = (0, core_1.getInput)('pinataApiSecret');
+    const pinata = (0, sdk_1.default)(pinataApiKey, pinataApiSecret);
     try {
         await pinata.testAuthentication();
         console.log('Successfully authenticated with Pinata');
     }
     catch (error) {
-        console.log('Failed authenticating with Pinata');
-        (0, core_1.setFailed)(error);
+        (0, core_1.setFailed)('Failed authenticating with Pinata');
+        console.log(error);
+        return;
     }
     try {
         const path = (0, core_1.getInput)('path');
         const pinName = (0, core_1.getInput)('pinName');
+        console.log('Uploading and pinning files to IPFS');
         const { IpfsHash: cid } = await pinata.pinFromFS(path, {
             pinataMetadata: {
                 name: pinName,
@@ -51332,8 +51334,9 @@ const run = async () => {
                 pins = rows;
             }
             catch (error) {
-                console.log('Failed to fetch existing pins');
-                (0, core_1.setFailed)(error);
+                (0, core_1.setFailed)('Failed to fetch existing pins');
+                console.log(error);
+                return;
             }
         }
         if (maxPinsToKeep && pins.length > maxPinsToKeep) {
@@ -51354,15 +51357,17 @@ const run = async () => {
                 console.log(pinsToDelete.map((p) => p.ipfs_pin_hash).join(', '));
             }
             catch (error) {
-                console.log('Failed to remove old pins');
-                (0, core_1.setFailed)(error);
+                (0, core_1.setFailed)('Failed to remove old pins');
+                console.log(error);
+                return;
             }
         }
         (0, core_1.setOutput)('cid', cid);
     }
     catch (error) {
-        console.log('Uploading and pinning failed');
-        (0, core_1.setFailed)(error);
+        (0, core_1.setFailed)('Uploading and pinning failed');
+        console.log(error);
+        return;
     }
 };
 run();

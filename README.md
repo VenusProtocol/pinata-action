@@ -8,11 +8,11 @@ A GitHub Action to upload a directory to IPFS and pin it using [Pinata](https://
 
 ```yaml
 - name: Upload to IPFS and pin
-  uses: VenusProtocol/pinata-action
+  uses: VenusProtocol/pinata-action@main
   with:
     path: ./testUploadDirectory
     pinName: "test-upload"
     maxPinsToKeep: 10
     pinataApiKey: ${{ secrets.PINATA_API_KEY }}
-    pinataSecretApiKey: ${{ secrets.PINATA_SECRET_API_KEY }}
+    pinataApiSecret: ${{ secrets.PINATA_API_SECRET }}
 ```
