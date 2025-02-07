@@ -18,7 +18,6 @@
 	},
 	"dependencies": {
 		"@actions/core": "^1.11.1",
-		"@octokit/action": "^6.0.7",
 		"@pinata/sdk": "1.2.1",
 		"@vercel/ncc": "^0.38.1"
 	},
